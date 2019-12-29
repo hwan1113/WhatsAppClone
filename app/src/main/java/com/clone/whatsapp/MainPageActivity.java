@@ -18,7 +18,10 @@ public class MainPageActivity extends AppCompatActivity {
 
         //13. Get the Logout Component.
         Button mLogout = findViewById(R.id.logout);
-        //14. Make the eventlistener of the button
+        //19. Get the findUser Component.
+        Button mFindUser = findViewById(R.id.findUser);
+
+        //14. Make the eventlistener of the Logout button
         mLogout.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -32,5 +35,14 @@ public class MainPageActivity extends AppCompatActivity {
 
             }
         });
+        //20. Make the eventlistener of the findUser button
+        mFindUser.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+               startActivity(new Intent(getApplicationContext(), FindUserActivity.class));
+
+            }
+        });
+
     }
 }
