@@ -6,12 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 <!--    23. Use the RecycleList view from the androidX Design package-->
-    <view class="androidx.appcompat.app.AlertController$RecycleListView"
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/userList"
         android:scrollbars="vertical">
-
-
-    </view>
+    </androidx.recyclerview.widget.RecyclerView>
 </LinearLayout>

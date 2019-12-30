@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
         mSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("MyApp","1");
                 if(mVerificationId != null) {
                     verifyPhoneNumberWithCode();
                 } else {
@@ -64,19 +63,17 @@ public class MainActivity extends AppCompatActivity {
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             @Override
             public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
-                Log.d("MyApp","2");
                 signInWithPhoneAuthCredential(phoneAuthCredential);
             }
 
             @Override
             public void onVerificationFailed(FirebaseException e) {
-                Log.d("MyApp",e.toString());
+                Log.d("onVerificationFailed",e.toString());
             }
 
             //15. Firebase does not always send the code. But when it sends, user must get it.
             @Override
             public void onCodeSent(String verificationId, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                Log.d("MyApp","4");
                 super.onCodeSent(verificationId, forceResendingToken);
                 mVerificationId = verificationId;
                 mSend.setText("Verify Code");
@@ -115,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
 
     //6. Make Method Using Firebase function.
     private void startPhoneNumberVerification() {
-        Log.d("MyApp","1");
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 mPhoneNumber.getText().toString(),
                 60,

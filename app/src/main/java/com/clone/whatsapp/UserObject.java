@@ -18,5 +18,14 @@ public class UserObject {
         return phone;
     }
 
+    @Override
+    public String toString() {
+        return "UserObject{" +
+                "name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                '}';
+    }
+
+
 
 }
