@@ -19,10 +19,17 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     //  ３．Declare Variables
     private EditText mPhoneNumber, mCode;
@@ -94,7 +101,32 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    userIsLoggedIn();
+//                  31. Get a data from the authentication page
+                    final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                    //32. Add user into the database if the user is using the app for the first time.
+                    if(user != null) {
+                        final DatabaseReference mUserDB = FirebaseDatabase.getInstance().getReference().child("user").child(user.getUid());
+                        mUserDB.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()) {
+                                    Map<String, Object> userMap = new HashMap<>();
+                                    userMap.put("phone", user.getPhoneNumber());
+                                    userMap.put("name", user.getDisplayName());
+                                    mUserDB.updateChildren(userMap);
+
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+
+//                    userIsLoggedIn();
                 }
             }
         });
