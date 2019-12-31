@@ -101,6 +101,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
+                    Log.d("error", "success");
 //                  31. Get a data from the authentication page
                     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -110,23 +111,25 @@ public class LoginActivity extends AppCompatActivity {
                         mUserDB.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                if(dataSnapshot.exists()) {
+                                if(!dataSnapshot.exists()) {
                                     Map<String, Object> userMap = new HashMap<>();
                                     userMap.put("phone", user.getPhoneNumber());
-                                    userMap.put("name", user.getDisplayName());
+                                    //Change later
+                                    userMap.put("name", user.getPhoneNumber());
                                     mUserDB.updateChildren(userMap);
-
                                 }
+                                userIsLoggedIn();
                             }
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                                Log.d("LoginActivity_126", databaseError.toString());
                             }
                         });
                     }
 
-//                    userIsLoggedIn();
+                } else {
+                    Log.d("LoginActivity_133", "Firebase auth failed");
                 }
             }
         });
