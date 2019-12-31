@@ -9,9 +9,10 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.telephony.TelephonyManager;
-import android.util.Log;
-import android.widget.LinearLayout;
 
+import com.clone.whatsapp.User.UserListAdapter;
+import com.clone.whatsapp.User.UserObject;
+import com.clone.whatsapp.Utils.CountryToPhonePrefix;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -52,8 +53,6 @@ public class FindUserActivity extends AppCompatActivity {
         // 27. Create userListAdapter with a UserListAdapter Class.
         mUserListAdapter = new UserListAdapter(userList);
         mUserList.setAdapter(mUserListAdapter);
-
-
     }
 //    30. Create get ContactList methods
     private void getContactList() {
@@ -72,14 +71,14 @@ public class FindUserActivity extends AppCompatActivity {
             if(!String.valueOf(phone.charAt(0)).equals("+")) {
                 phone = ISOPrefix + phone;
             }
-            UserObject mContact = new UserObject(name, phone);
+            UserObject mContact = new UserObject(name, phone, "");
             contactList.add(mContact);
             getUserDetails(mContact);
 
         }
     }
     //36. Create a method to get the User info
-    private void getUserDetails(UserObject mContact) {
+    private void getUserDetails(final UserObject mContact) {
         DatabaseReference mUserDB = FirebaseDatabase.getInstance().getReference().child("user");
         Query query = mUserDB.orderByChild("phone").equalTo(mContact.getPhone());
         query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -95,7 +94,18 @@ public class FindUserActivity extends AppCompatActivity {
                         if(childSnapshot.child("name").getValue() != null) {
                             name = childSnapshot.child("name").getValue().toString();
                         }
-                        UserObject mUser = new UserObject(name, phone);
+
+                        UserObject mUser = new UserObject(name, phone, childSnapshot.getKey());
+
+                        //37. Create this logic so that if the name is equal to the number, change it to the name from user's contact
+                        if (name.equals("phone")) {
+                            for(UserObject mContactIterator : contactList) {
+                                if(mContactIterator.getPhone().equals(mUser.getPhone())) {
+                                    mUser.setName(mContactIterator.getName());
+                                }
+                            }
+                        }
+
                         userList.add(mUser);
                         //Use this method to notify that something has changed
                         mUserListAdapter.notifyDataSetChanged();

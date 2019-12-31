@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--45. Create item_chat layout-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/layout">
-<!--27. Create item_user Layout-->
     <TextView
+        android:padding="20sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="name"
-        android:id="@+id/name"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="phone"
-        android:id="@+id/phone"/>
+        android:text="title"
+        android:id="@+id/title"/>
 
 </LinearLayout>
