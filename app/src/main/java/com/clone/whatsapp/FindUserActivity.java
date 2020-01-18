@@ -98,7 +98,7 @@ public class FindUserActivity extends AppCompatActivity {
                         UserObject mUser = new UserObject(name, phone, childSnapshot.getKey());
 
                         //37. Create this logic so that if the name is equal to the number, change it to the name from user's contact
-                        if (name.equals("phone")) {
+                        if (name.equals(phone)) {
                             for(UserObject mContactIterator : contactList) {
                                 if(mContactIterator.getPhone().equals(mUser.getPhone())) {
                                     mUser.setName(mContactIterator.getName());

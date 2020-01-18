@@ -15,54 +15,45 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-//43. Create ChatListAdpater as in userListAdapter
-public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatListViewHolder> {
-    ArrayList<ChatObject> ChatList;
-    public ChatListAdapter (ArrayList<ChatObject> ChatList) {
-        this.ChatList = ChatList;
-        Log.d("tag", ChatList.toString());
+//43. Create MessageAdpater as in userListAdapter
+public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder> {
+    ArrayList<ChatObject> MessageList ;
+    public MessageAdapter (ArrayList<ChatObject> MessageList) {
+        this.MessageList = MessageList;
     }
 
 
     @NonNull
     @Override
-    public ChatListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MessageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat, null, false);
         //For layout purpose
         RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutView.setLayoutParams(lp);
 
         //recycle view
-        ChatListViewHolder rcv = new ChatListViewHolder(layoutView);
+        MessageViewHolder rcv = new MessageViewHolder(layoutView);
         return rcv;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ChatListViewHolder holder, final int position) {
-        holder.mTitle.setText(ChatList.get(position).getChatId());
+    public void onBindViewHolder(@NonNull MessageViewHolder holder, final int position) {
 
-
-        holder.mLayout.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-            }
-        });
 
     }
 
     @Override
     public int getItemCount() {
-        return ChatList.size();
+        return MessageList.size();
     }
 
-    public class ChatListViewHolder extends RecyclerView.ViewHolder {
-        public TextView mTitle;
+    public class MessageViewHolder extends RecyclerView.ViewHolder {
         public LinearLayout mLayout;
-        public ChatListViewHolder(View view) {
+        public MessageViewHolder(View view) {
             super(view);
-            mTitle = view.findViewById(R.id.title);
             mLayout = view.findViewById(R.id.layout);
 
         }
     }
 }
+
