@@ -74,7 +74,6 @@ public class FindUserActivity extends AppCompatActivity {
             UserObject mContact = new UserObject(name, phone, "");
             contactList.add(mContact);
             getUserDetails(mContact);
-
         }
     }
     //36. Create a method to get the User info
@@ -110,7 +109,6 @@ public class FindUserActivity extends AppCompatActivity {
                         //Use this method to notify that something has changed
                         mUserListAdapter.notifyDataSetChanged();
                         return;
-
                     }
                 }
             }
@@ -134,6 +132,4 @@ public class FindUserActivity extends AppCompatActivity {
         }
         return CountryToPhonePrefix.getPhone(iso);
     }
-
-
 }

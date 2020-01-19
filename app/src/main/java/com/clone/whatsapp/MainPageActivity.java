@@ -71,7 +71,7 @@ public class MainPageActivity extends AppCompatActivity {
 //      42. Initialize RecyclerView
         initializeRecyclerView();
 //      48. Call user chat list function.
-//        getUserChatList();
+        getUserChatList();
 
 
     }
@@ -104,14 +104,18 @@ public class MainPageActivity extends AppCompatActivity {
                         boolean exists = false;
 //                      49. Create a function to prevent creating multiple chat ID
                         for (ChatObject mChatIterator : chatList) {
+//                            Log.d("chat", mChatIterator.getChatId());
+//                            Log.d("chat", mChat.getChatId());
                             if (mChatIterator.getChatId().equals(mChat.getChatId())) {
                                 exists = true;
                             }
                         }
-                        if (exists)
+                        if (exists) {
                             continue;
-                        chatList.add(mChat);
-                        mChatListAdapter.notifyDataSetChanged();
+                        } else {
+                            chatList.add(mChat);
+                            mChatListAdapter.notifyDataSetChanged();
+                        }
                     }
                 }
             }

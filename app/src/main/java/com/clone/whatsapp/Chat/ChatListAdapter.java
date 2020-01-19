@@ -1,5 +1,7 @@
 package com.clone.whatsapp.Chat;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,17 +12,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.clone.whatsapp.ChatActivity;
 import com.clone.whatsapp.R;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 //43. Create ChatListAdpater as in userListAdapter
 public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatListViewHolder> {
-    ArrayList<ChatObject> ChatList;
-    public ChatListAdapter (ArrayList<ChatObject> ChatList) {
-        this.ChatList = ChatList;
-        Log.d("tag", ChatList.toString());
+    ArrayList<ChatObject> chatList;
+
+    public ChatListAdapter (ArrayList<ChatObject> chatList) {
+        this.chatList = chatList;
+        Log.d("tag", chatList.toString());
     }
 
 
@@ -38,21 +40,25 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatLi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ChatListViewHolder holder, final int position) {
-        holder.mTitle.setText(ChatList.get(position).getChatId());
+    public void onBindViewHolder(@NonNull final ChatListViewHolder holder, final int position) {
+        holder.mTitle.setText(chatList.get(position).getChatId());
 
-
+        //55. the send method need chatID so we need to send that info using intent.
         holder.mLayout.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ChatActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("chatID", chatList.get(holder.getAdapterPosition()).getChatId());
+                intent.putExtras(bundle);
+                v.getContext().startActivity(intent);
             }
         });
-
     }
 
     @Override
     public int getItemCount() {
-        return ChatList.size();
+        return chatList.size();
     }
 
     public class ChatListViewHolder extends RecyclerView.ViewHolder {

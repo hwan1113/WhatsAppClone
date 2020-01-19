@@ -1,5 +1,6 @@
 package com.clone.whatsapp.User;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +45,8 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserLi
         holder.mLayout.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+
+                //Later. Has to prevent user from adding same chat over and over again to DB.
                 String key = FirebaseDatabase.getInstance().getReference().child("chat").push().getKey();
 
                 FirebaseDatabase.getInstance().getReference().child("user").child(FirebaseAuth.getInstance().getUid()).child("chat").child(key).setValue(true);
