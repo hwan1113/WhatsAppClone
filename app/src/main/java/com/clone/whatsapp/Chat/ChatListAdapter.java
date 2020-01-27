@@ -48,9 +48,12 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatLi
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ChatActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("chatID", chatList.get(holder.getAdapterPosition()).getChatId());
-                intent.putExtras(bundle);
+
+                intent.putExtra("chatObject", chatList.get(holder.getAdapterPosition()));
+//                86. We will use serialized object instead of bundle. the function is the same
+//                Bundle bundle = new Bundle();
+//                bundle.putString("chatID", chatList.get(holder.getAdapterPosition()).getChatId());
+//                intent.putExtras(bundle);
                 v.getContext().startActivity(intent);
             }
         });

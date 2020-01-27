@@ -4,7 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+<!--    91. Create Chat room button-->
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/create"
+        android:text="Create Chat Room"/>
 <!--    23. Use the RecycleList view from the androidX Design package-->
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
